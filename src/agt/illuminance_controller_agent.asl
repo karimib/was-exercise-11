@@ -29,8 +29,7 @@ task_requirements([2,3]).
  * Body: (currently) creates a QLearnerArtifact and a ThingArtifact for learning and acting on the lab environment.
 */
 @start
-+!start : learning_lab_environment(Url) 
-  & task_requirements([Z1Level, Z2Level]) <-
++!start : learning_lab_environment(Url) & task_requirements([Z1Level, Z2Level]) <- 
 
   .print("Hello world");
   .print("I want to achieve Z1Level=", Z1Level, " and Z2Level=",Z2Level);
@@ -47,4 +46,7 @@ task_requirements([2,3]).
 
   // example use of the invokeAction operation of the ThingArtifact 
   //invokeAction(ActionTag, PayloadTags, Payload)
-  .
+  // Task 2.2
+  for ( .member([Z1Level,Z2Level],GoalDescriptions) ) {
+    calculateQ([Z1Level,Z2Level], 10, 0.1, 0.9, 0.4, 100)[artifact_id(QLArtId)];
+  }
